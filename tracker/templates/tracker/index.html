@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Счётчик дней</title>
+    <style>
+        :root {
+            --border-color: #ccc;
+            --bg-color: #f9fafb;
+            --accent: #007bff;
+            --text-color: #333;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #ffffff 100%);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--bg-color);
+            padding: 40px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            max-height: 70vh;
+            overflow-y: scroll;
+        }
+
+        .block {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .empty {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            height: 60px;
+            background: #fdfdfd;
+        }
+
+        .event-name {
+            font-weight: 500;
+        }
+
+        .event-days {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Дней без...</div>
+
+        {% for event in events %}
+            <div class="block">
+                <span class="event-name">дней без {{ event.name }}</span>
+                <span class="event-days">{{ event.days_since }}</span>
+            </div>
+        {% empty %}
+            <div class="block">
+                <span>Нет событий</span>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
