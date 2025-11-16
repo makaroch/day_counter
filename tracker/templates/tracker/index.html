@@ -9,7 +9,7 @@
             --bg-color: #f9fafb;
             --accent: #007bff;
             --text-color: #333;
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -33,7 +33,7 @@
             background: var(--bg-color);
             padding: 40px;
             width: 90%;
-            max-width: 700px;
+            max-width: 70vw;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             max-height: 70vh;
@@ -43,20 +43,20 @@
         .block {
             border: 2px solid var(--border-color);
             border-radius: 12px;
-            padding: 24px 28px;
+            padding: 20px 28px;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.2rem;
             background: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 30px;
+            align-items: center;
+            font-size: 1.1rem;
         }
 
         .block:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .empty {
@@ -70,11 +70,21 @@
 
         .event-name {
             font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .event-date {
+            font-size: 0.95rem;
+            color: #666;
+            white-space: nowrap;
         }
 
         .event-days {
             font-weight: 600;
             color: var(--accent);
+            white-space: nowrap;
         }
 
         .title {
@@ -87,19 +97,21 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Дней без...</div>
+<div class="container">
+    <div class="title">Дней без...</div>
 
-        {% for event in events %}
-            <div class="block">
-                <span class="event-name">дней без {{ event.name }}</span>
-                <span class="event-days">{{ event.days_since }}</span>
-            </div>
-        {% empty %}
-            <div class="block">
-                <span>Нет событий</span>
-            </div>
-        {% endfor %}
-    </div>
+    {% for event in events %}
+        <div class="block">
+            <span class="event-name">{{ event.name }}</span>
+            <span class="event-date">{{ event.last_occurred}} </span>
+            <span class="event-days">{{ event.days_since }} </span>
+        </div>
+
+    {% empty %}
+        <div class="block">
+            <span>Нет событий</span>
+        </div>
+    {% endfor %}
+</div>
 </body>
 </html>
